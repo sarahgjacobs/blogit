@@ -1,7 +1,10 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
-app.get('/test', (req, res) => {
+app.use(cors());
+
+app.post('/register', (req, res) => {
     res.json('it worked')
 })
 
