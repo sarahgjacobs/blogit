@@ -28,14 +28,19 @@ See [this link](https://github.com/sarahgjacobs/blogit) to view the page.
 
 ## Installation & Usage
 Clone the repository: git clone https://github.com/sarahgjacobs/blogit
+
 Navigate to the project directory: cd BlogIt
+
 Install the dependencies: npm install
 
+
 Start the development server: npm start
+
 Open your browser and visit: http://localhost:3000
 
 ## Contributions
 Sarah Jacobs
+
 Thanks to Dawid at [Youtube](https://youtu.be/xKs2IZZya7c) for providing a great tutorial
 
 ## Test
