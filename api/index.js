@@ -9,4 +9,4 @@ app.post('/register', (req, res) => {
 })
 
 console.log('test')
-app.listen(4000);
+app.listen(3000);
