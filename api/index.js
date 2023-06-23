@@ -10,7 +10,7 @@ var salt = bcrypt.genSaltSync(10);
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb+srv://blog:StvdR1AGVtN0kCPD@blog.v6adnmd.mongodb.net/?retryWrites=true&w=majority');
+mongoose.connect('');
 
 app.post('/register', async (req, res) => {
     const {username, password} = req.body;
