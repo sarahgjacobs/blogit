@@ -10,7 +10,7 @@ var salt = bcrypt.genSaltSync(10);
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('');
+mongoose.connect('mongodb+srv://blog:StvdR1AGVtN0kCPD@blog.v6adnmd.mongodb.net/?retryWrites=true&w=majority');
 
 app.post('/register', async (req, res) => {
     const {username, password} = req.body;
@@ -19,6 +19,13 @@ app.post('/register', async (req, res) => {
         password: bcrypt.hashSync(password, salt),
     })
     res.json(userDoc)
+})
+
+app.post('/login', async (req, res) => {
+    const {username, password} = req.body;
+    const userDoc = await User.findOne({username: username})
+    const passOk = bcrypt.compareSync(password, userDoc.password)
+    res.json(passOk)
 })
 
 console.log('test')
