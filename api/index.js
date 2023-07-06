@@ -5,13 +5,16 @@ const mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 const User = require('./models/User');
 
+//encrypts user login credentials
 var salt = bcrypt.genSaltSync(10);
 
 app.use(cors());
 app.use(express.json());
 
+//connects to mongo db
 mongoose.connect('mongodb+srv://blog:StvdR1AGVtN0kCPD@blog.v6adnmd.mongodb.net/?retryWrites=true&w=majority');
 
+//hashes user login credentials
 app.post('/register', async (req, res) => {
     const {username, password} = req.body;
     const userDoc = await User.create({
@@ -21,6 +24,7 @@ app.post('/register', async (req, res) => {
     res.json(userDoc)
 })
 
+//compares user credentials to hashed password
 app.post('/login', async (req, res) => {
     const {username, password} = req.body;
     const userDoc = await User.findOne({username: username})
