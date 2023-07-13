@@ -4,11 +4,14 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 const User = require('./models/User');
+const jwt = require('jsonwebtoken');
 
 //encrypts user login credentials
 var salt = bcrypt.genSaltSync(10);
+//secret web token
+var secret = 'secretkey';
 
-app.use(cors());
+app.use(cors({credentials: true,origin: 'http://localhost:3001'}));
 app.use(express.json());
 
 //connects to mongo db
@@ -29,7 +32,15 @@ app.post('/login', async (req, res) => {
     const {username, password} = req.body;
     const userDoc = await User.findOne({username: username})
     const passOk = bcrypt.compareSync(password, userDoc.password)
-    res.json(passOk)
+    if (passOk) {
+        //logged in
+        jwt.sign({username, id: userDoc.id}, secret, {}, (err, token) => {
+        if (err) throw err;
+        res.cookie("token", token).json('ok')
+    });
+    } else {
+        res.status(400).json('Wrong credentials')
+    }
 })
 
 console.log('test')
