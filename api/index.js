@@ -12,7 +12,7 @@ var salt = bcrypt.genSaltSync(10);
 //secret web token
 var secret = 'secretkey';
 
-app.use(cors({credentials: true,origin: 'http://localhost:3001'}));
+app.use(cors({credentials: true,origin: 'http://localhost:3000'}));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -38,7 +38,10 @@ app.post('/login', async (req, res) => {
         //logged in
         jwt.sign({username, id: userDoc.id}, secret, {}, (err, token) => {
         if (err) throw err;
-        res.cookie("token", token).json('ok')
+        res.cookie("token", token).json({
+            id:userDoc._id,
+            username,
+        })
     });
     } else {
         res.status(400).json('Wrong credentials')
