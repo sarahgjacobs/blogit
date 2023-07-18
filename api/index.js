@@ -12,7 +12,7 @@ var salt = bcrypt.genSaltSync(10);
 //secret web token
 var secret = 'secretkey';
 
-app.use(cors({credentials: true,origin: 'http://localhost:3000'}));
+app.use(cors({credentials: true,origin: 'http://localhost:3001'}));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -40,7 +40,7 @@ app.post('/login', async (req, res) => {
         if (err) throw err;
         res.cookie("token", token).json({
             id:userDoc._id,
-            username,
+            username
         })
     });
     } else {
