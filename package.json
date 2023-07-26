@@ -1,0 +1,27 @@
+{
+  "homepage": "http://sarahgjacobs.github.io/blogit/",
+  "name": "blogit",
+  "version": "1.0.0",
+  "description": "![MIT](https://img.shields.io/badge/license-mit-blue)",
+  "main": "index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sarahgjacobs/blogit.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sarahgjacobs/blogit/issues"
+  },
+  "devDependencies": {
+    "gh-pages": "^5.0.0"
+  }
+}
