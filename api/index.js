@@ -6,6 +6,8 @@ var bcrypt = require('bcryptjs');
 const User = require('./models/User');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
+const multer = require('multer');
+const uploadMiddleware = multer({ dest: 'uploads/'})
 
 //encrypts user login credentials
 var salt = bcrypt.genSaltSync(10);
@@ -52,7 +54,12 @@ app.post('/logout', (req, res) => {
     res.cookie("token", "").json('ok')
 })
 
-    
+app.post('/post', uploadMiddleware.single(file), (req, res) => {
+    res.json({files:req.file});
+    res.json('ok')
+})    
+
+
 app.get('/profile', (req, res) => {
     const {token} = req.cookies;
     jwt.verify(token, secret, {}, (err, info) => {
