@@ -62,15 +62,20 @@ app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
     const ext = parts[parts.length - 1];
     const newPath = path+'.'+ext;
     fs.renameSync(path, newPath);
-    
-    const {title, summary, content} = req.body;
+
+    const {token} = req.cookies;
+    jwt.verify(token, secret, {}, async (err, info) => {
+        if (err) throw err;
+        const {title, summary, content} = req.body;
     const postDoc = await Post.create({
         title,
         summary,
         content,
         cover: newPath,
+        author:info.id,
    })
-   res.json({postDoc})
+        res.json(info)
+    })
 })    
 
 
@@ -82,6 +87,12 @@ app.get('/profile', (req, res) => {
     })
     res.json(req.cookies);
 })
+
+app.get('/post', async (req, res) => {
+    const posts = await Post.find();
+    res.json(posts)
+})
+
 
 console.log('test')
 app.listen(3000);
